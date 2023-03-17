@@ -10,7 +10,7 @@ class AnimalButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Animal Buttons",
+      title: "Animal Buttons784",
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
