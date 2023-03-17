@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(AnimalButtons());
+  runApp(const AnimalButtons());
 }
 
 class AnimalButtons extends StatelessWidget {
-  AnimalButtons({super.key});
+  const AnimalButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: "Animal Buttons784",
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
@@ -18,17 +18,20 @@ class AnimalButtons extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool showCat = false;
-  bool showDog = false;
-  bool showLizzard = false;
-  bool showXuesos = false;
+  int idx = 0;
+  Map<String, String> data = {
+    'showCat': 'images/cat.jpg',
+    'showDog': 'images/dog.jpg',
+    'showLizzard': 'images/primal.png',
+    'showXuesos': 'images/xuesos.jpg',
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -42,46 +45,26 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    showCat = !showCat;
-                  });
-                },
-                child: Text("cat"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    showDog = !showDog;
-                  });
-                },
-                child: Text("dog"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    showLizzard = !showLizzard;
-                  });
-                },
-                child: Text("lizzard"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    showXuesos = !showXuesos;
-                  });
-                },
-                child: Text("настоящее животное"),
-              ),
+              for (var i = 0; i < data.length; i++)
+                ElevatedButton(
+                  onPressed: () => _changeState(
+                    i,
+                  ),
+                  child: Text(data.keys.toList()[i]),
+                )
             ],
           ),
-          if (showCat) Image.asset("images/cat.jpg"),
-          if (showDog) Image.asset("images/dog.jpg"),
-          if (showLizzard) Image.asset("images/primal.png"),
-          if (showXuesos) Image.asset("images/xuesos.jpg"),
+          Image.asset(
+            data.values.toList()[idx],
+          )
         ],
       ),
     );
+  }
+
+  _changeState(int i) {
+    setState(() {
+      idx = i;
+    });
   }
 }
